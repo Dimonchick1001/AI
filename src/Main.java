@@ -20,6 +20,9 @@ class Main {
     static String calculator(String input) {
 
         String[] parts = input.split(" ");
+        if (parts.length > 3 ){
+            throw new IllegalArgumentException("Некорректный ввод данных");
+        }
 
         int x = 0;
         int c = 0;
