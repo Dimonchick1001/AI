@@ -1,233 +1,165 @@
-import java.util.*;
+import java.util.Scanner;
 
-class Main {
+public class Main {
     public String parts ;
-    public static void main(String[] args){
-        Scanner scanner= new Scanner(System.in);
-         while (true){
-             System.out.println("Введите арефметическое выражение: ");
-              String parts = scanner.nextLine();
-              if (parts.equals("exit")){
-                  System.out.println("программа завершена");
-                  break;
-              }
-              String result = calculator(parts);
-         }
-         scanner.close();
-
-
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Введите арефметическое выражение: ");
+            String parts = scanner.nextLine();
+            if (parts.equals("exit")) {
+                System.out.println("программа завершена");
+                break;
+            }
+            String result = calculator(parts);
+        }
+        scanner.close();
     }
     static String calculator(String input) {
 
         String[] parts = input.split(" ");
-        if (parts.length > 3 ){
+        try {
+            int part1 = Integer.parseInt(parts[0]);
+            if (part1 >= 0){
+                throw new ArrayIndexOutOfBoundsException("Некорректный вводы данных");
+            }
+        }catch (IllegalArgumentException e){
+
+        }
+        String part1 = parts[0];
+        if(part1.length() > 12 ){
             throw new IllegalArgumentException("Некорректный ввод данных");
         }
+        String part2 = parts[2];
 
-        int x = 0;
-        int c = 0;
-        try {
-            x = Integer.parseInt(parts[0]);
-
-        }catch (NumberFormatException e) {
-            }
-
-        try {
-            c = Integer.parseInt(parts[2]);
-
-        }catch (NumberFormatException e) {
+        if(part2.length() > 12){
+            throw new IllegalArgumentException("Некорректный ввод данных");
         }
-        if (c > 0 & x <= 0) {
-            throw new IllegalArgumentException("Нельзя совмещать системы чисел");
-        } if (x > 0 & c <= 0) {
-            throw new IllegalArgumentException("Нельзя совмещать системы чисел");
-
+        if (parts.length > 3) {
+            throw new IllegalArgumentException("Некорректный ввод данных");
         }
-
-
-        String number = parts[0];
-        String number1 = parts[2];
-        int num = x;
-        int num1 = c;
-        switch (number){
-            case "1":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "2":
-                x = Integer.parseInt(parts[0]);
-                break;
-                case "3":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "4":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "5":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "6":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "7":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "8":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "9":
-                x = Integer.parseInt(parts[0]);
-                break;
-            case "0":
-                x = Integer.parseInt(parts[0]);
-                break;
-
-            default:
-                x = convertToNumber(parts[0]);
-
-        }
-        switch (number1){
-            case "1":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "2":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "3":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "4":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "5":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "6":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "7":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "8":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "9":
-                c = Integer.parseInt(parts[2]);
-                break;
-            case "0":
-                c = Integer.parseInt(parts[2]);
-                break;
-            default:
-                c = convertToNumber(parts[2]);
-
-        }
-        num = x;
-         num1 = c;
-
         String operator = parts[1];
-        int result = 0;
         switch (operator) {
             case "+":
-                result = num + num1;
-                break;
+                Plus(parts);
+
+             break;
             case "-":
-                result = num - num1;
-                break;
-            case "*":
-                result = num * num1;
+                Minus(parts);
                 break;
             case "/":
-                result = num / num1;
+                Separation(parts);
                 break;
-            default:
-                throw new IllegalArgumentException("Неподдерживаемая арифметическая операция: " + operator);
+            case "*":
+                Multiplication(parts);
+                break;
+
 
         }
-
+        return input;
+    }
+     static String Plus(String[] parts){
         try{
-        if(Integer.parseInt(parts[0]) > 0) {
-            System.out.println("результат " + result);
-        }}
-        catch (NumberFormatException e){
-        {
-            intToRoman(result);
-             Result(result);
-                return convertToRoman(result);
+            int part2 = Integer.parseInt(parts[2]);
+            if (part2 >= 0){
+                throw new ArrayIndexOutOfBoundsException("Некорректный ввод данных");
             }
-       }
-        return operator;
-    }
+        }catch (IllegalArgumentException e){
 
-        static int convertToNumber(String roman){
-        int number = 0;
-        int prev = 0;
-        for(int i = roman.length() - 1; i >= 0 ; i--){
-            int value = romanToArabic(roman.charAt(i));
-            if(value < prev) {
-                number -= value;
-            }else {
-                number += value;
-            }
-            prev = value;
         }
-           return number;
+        StringBuilder part1 = new StringBuilder(parts[0]);
+        part1.deleteCharAt(part1.length() - 1);
+         StringBuilder part2 = new StringBuilder(parts[2]);
+         part2.deleteCharAt(0);
+         String result = part1.toString() + part2.toString();
+         System.out.println(result);
+
+         return result;
     }
-    static int romanToArabic(char roman){
-        switch (roman){
-            case 'I':
-                return 1;
-            case 'V':
-                return 5;
-            case 'X':
-                return 10;
-            default:
-                throw new
-                     IllegalArgumentException("Неверный римский символ " + roman);
-        }
-    }
-    static String convertToRoman(int number){
-        if (number < 0){
-            throw new IllegalArgumentException("Результат не может быть меньше нуля");
-        }
-        if (number == 0) {
-            throw new
-                    IllegalArgumentException("Результат не может быть равен нулю.");
-        }
-        StringBuilder roman = new StringBuilder();
-        int[] values = {10,9,8,7,6,5,4,3,2,1};
-        String[] romans = {"X","IX","VIII","VII","VI","V","IV","III","II","I"};
-             int i = 0;
-             while(number > 0){
-                 if (number - values[i] >= 0 ){
-                     roman.append(romans[i]);
-                     number -= values[i];
-                 }else {
-                     i++;
-                 }
-             }
-             return roman.toString();
-    }
-    static String intToRoman(int num) {
-        int[] arabicValues = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-        String[] romanNumerals = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    static String Minus(String[] parts){
+         try{
+             int part2 = Integer.parseInt(parts[2]);
+             if (part2 >= 0);
+             throw new ArrayIndexOutOfBoundsException("Некорректный вод данных");
+         }catch (IllegalArgumentException e){
+         }
+        String part1 = parts[0];
+        StringBuilder charick = new StringBuilder(parts[2]);
+        charick.deleteCharAt(0);
+        int z = parts.length;
+        charick.deleteCharAt(z);
+        String part2 = new String(charick);
+        String result = part1.replace(part2,"");
 
-        StringBuilder romanNumeral = new StringBuilder();
-
-        for (int i = 0; i < arabicValues.length; i++) {
-            while (num >= arabicValues[i]) {
-                romanNumeral.append(romanNumerals[i]);
-                num -= arabicValues[i];
-            }
-        }
-
-        return romanNumeral.toString();
-    }
-
-
-    static int Result(int result){
-        Main intToRoman = new Main();
-        int num = result;
-        System.out.println(intToRoman.intToRoman(num));
+        System.out.println(result);
         return result;
     }
-}
 
+    static String Separation(String[] parts){
+        StringBuilder part1 = new StringBuilder(parts[0]);
+        int part2 = Integer.parseInt(parts[2]);
+        if(part2 > 10){
+            throw new IllegalArgumentException("Некорректный ввод данных");
+        }
+        int z = part1.length() - 2;
+        int x = z/part2;
+        part1.deleteCharAt(0);
+        part1.deleteCharAt(part1.length() - 1);
+        String result;
+
+        for(int i = z; i > x; i--){
+            z = z - 1;
+            part1.deleteCharAt(z);
+
+        }
+        result = new String(part1);
+        System.out.println("\"" + result + "\"" );
+
+        return result;
+    }
+
+
+    static String Multiplication(String[] parts){
+            StringBuilder part1 = new StringBuilder(parts[0]);
+            try{
+                int part2 = Integer.parseInt(parts[2]);
+
+            }catch (IllegalArgumentException e){
+                throw new IllegalArgumentException("Некорректный ввод данных");
+            }
+            int part2 = Integer.parseInt(parts[2]);
+            part1.deleteCharAt(0);
+            part1.deleteCharAt(part1.length() - 1);
+            String result = new String(part1);
+
+            if (part2 > 10) {
+                throw new IllegalArgumentException("Некорректный ввод данных");
+            }
+
+
+            int z = part2 - 1;
+
+            for (int i = 0; i < z; i++) {
+                result = result.concat(new String(part1));
+
+            }
+            if (result.length() > 40) {
+                StringBuilder result1 = new StringBuilder(result);
+                int v = result.length();
+                for (int i = v; i > 40; i--) {
+                    v--;
+                    result1.deleteCharAt(v);
+                }
+                System.out.println(result1 + "...");
+
+            } else {
+                System.out.println("\"" + result + "\"");
+            }
+
+            return result;
+
+    }
+
+
+
+}
